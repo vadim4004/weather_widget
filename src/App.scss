@@ -1,0 +1,41 @@
+.App {
+	align-items: center;
+	text-align: center;
+	max-width: 300px;
+	margin: 0 auto;
+
+	.gear {
+		position: absolute;
+		display: flex;
+		width: 300px;
+		justify-content: flex-end;
+	}
+	.settings {
+		margin: 30px auto;
+		text-align: left;
+		padding-top: 7px;
+	}
+
+	.city-options {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		background-color: rgb(237, 235, 233);
+		margin-top: 15px;
+		margin-bottom: 15px;
+		padding-left: 10px;
+		height: 30px;
+	}
+	.city-options p {
+		margin-left: 0px;
+	}
+	.delete-option {
+		margin-left: auto;
+	}
+	.error {
+		padding-top: 100px;
+	}
+	.dnd-item {
+		cursor: grab;
+	}
+}
