@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { WeatherCard } from '../WeatherCard/WeatherCard';
 
-export const WeatherList = ({ data, error, isLoading }) => {
+export const WeatherList = () => {
 	let cities = useSelector((state) => state.cities);
 
 	return (
