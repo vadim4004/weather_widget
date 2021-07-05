@@ -4,6 +4,34 @@
 	max-width: 300px;
 	margin: 0 auto;
 
+	.root-card {
+		margin-bottom: 10px;
+
+		.weather-info {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+
+			.weather-item {
+				margin: 5px;
+				align-self: center;
+			}
+			.weather-icon {
+				min-height: 50px;
+			}
+		}
+		.weather-params-card {
+			display: flex;
+			justify-content: center;
+			margin-bottom: 5px;
+			padding: 2px;
+
+			.params-icon {
+				margin-right: 5px;
+			}
+		}
+	}
+
 	.gear {
 		position: absolute;
 		display: flex;
@@ -25,17 +53,32 @@
 		margin-bottom: 15px;
 		padding-left: 10px;
 		height: 30px;
+		border-radius: 2px;
 	}
-	.city-options p {
-		margin-left: 0px;
+	.city-options .city-name {
+		margin-left: 15px;
 	}
 	.delete-option {
 		margin-left: auto;
 	}
-	.error {
-		padding-top: 100px;
-	}
+
 	.dnd-item {
 		cursor: grab;
+	}
+
+	.city-select {
+		margin-bottom: 10px;
+
+		.button-add {
+			height: 60px;
+		}
+	}
+
+	.city-select-form {
+		height: 60px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
 	}
 }

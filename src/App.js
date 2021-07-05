@@ -5,7 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Settings } from './components/Settings/Settings';
 import { API_BASE_URL, API_KEY } from './api/api';
 import { UseFetch } from './hooks/UseFetch';
-import { GetWeather } from './components/GetWeather/GetWeather';
+import { WeatherList } from './components/WeatherList/WeatherList';
 
 function App() {
 	const [isOpen, setIsOpen] = useState(true);
@@ -25,7 +25,7 @@ function App() {
 					<div className='gear'>
 						<SettingsIcon fontSize='large' onClick={() => setIsOpen(false)} />
 					</div>
-					<GetWeather
+					<WeatherList
 						data={data}
 						isLoading={isLoading}
 						error={error}
@@ -39,7 +39,12 @@ function App() {
 					<div className='gear'>
 						<CloseIcon fontSize='large' onClick={() => setIsOpen(true)} />
 					</div>
-					<Settings onSearch={onSearch} />
+					<Settings
+						onSearch={onSearch}
+						data={data}
+						isLoading={isLoading}
+						error={error}
+					/>
 				</div>
 			)}
 		</div>

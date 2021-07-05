@@ -2,11 +2,19 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { weatherReducer } from './reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-//const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const persistConfig = {
+	key: 'root',
+	storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, weatherReducer);
+
 export let store = createStore(
-	weatherReducer,
+	persistedReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );
 
-window.__store__ = store;
+export let persistor = persistStore(store);

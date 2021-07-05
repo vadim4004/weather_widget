@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { WeatherCard } from '../WeatherCard/WeatherCard';
 
-export const WeatherList = () => {
+export const WeatherList = ({ data, error, isLoading }) => {
 	let cities = useSelector((state) => state.cities);
 
 	return (
@@ -12,7 +12,7 @@ export const WeatherList = () => {
 					return (
 						<WeatherCard
 							key={index}
-							dt={data.dt}
+							dt={data.dt * 1000}
 							feelsLike={data.main.feels_like}
 							pressure={data.main.pressure}
 							humidity={data.main.humidity}

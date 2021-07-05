@@ -2,6 +2,9 @@ import React from 'react';
 import { Card } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+// import Pressure from '../../assets/img/pressure.svg';
+import { ReactComponent as Pressure } from '../../assets/img/pressure.svg';
+import { ReactComponent as Wind } from '../../assets/img/wind.svg';
 
 export const WeatherCard = ({
 	dt,
@@ -19,7 +22,7 @@ export const WeatherCard = ({
 	const date = new Date(dt);
 
 	return (
-		<Card className='root'>
+		<Card className='root-card'>
 			<CardContent>
 				<Typography variant='h4' gutterBottom>
 					{name},{country}
@@ -41,11 +44,19 @@ export const WeatherCard = ({
 					Feels like {Math.round(feelsLike)}&#176;C, {weather}.
 				</Typography>
 
-				<div className='weather-params-card'>
-					<div>{wind}m/s</div>
-					<div>{pressure}hPa</div>
-					<div>Humidity: {humidity}%</div>
-					<div>Visibility: {visibility / 1000}km</div>
+				<div className=''>
+					<div className='weather-params-card'>
+						<Wind className='params-icon' />
+						{wind}m/s
+					</div>
+					<div className='weather-params-card'>
+						<Pressure className='params-icon' />
+						{pressure}hPa
+					</div>
+					<div className='weather-params-card'>Humidity: {humidity}%</div>
+					<div className='weather-params-card'>
+						Visibility: {visibility / 1000}km
+					</div>
 				</div>
 
 				<Typography variant='h6' component='h2'>
