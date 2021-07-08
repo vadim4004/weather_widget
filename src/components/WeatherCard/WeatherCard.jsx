@@ -59,9 +59,7 @@ export const WeatherCard = ({
 				</div>
 
 				<Typography variant='h6' component='h2'>
-					<p>
-						{date.toLocaleDateString()} - {date.toLocaleTimeString()}
-					</p>
+					<p>{date.toLocaleDateString()}</p>
 				</Typography>
 			</CardContent>
 		</Card>

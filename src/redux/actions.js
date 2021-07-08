@@ -1,20 +1,16 @@
 import { API_BASE_URL, API_KEY } from '../api/api';
 import * as types from './types';
 
-export const initApp = (cities) => (dispatch, getState) => {
-	localStorage.removeItem('cities');
-	const arr = getState().cities;
-	// if(!arr)
-	for (let value of arr) {
-		dispatch(fetchCity(value.name));
-	}
+export const initApp = (cities) => (dispatch) => {
 	dispatch({
 		type: types.INIT,
-		payload: cities,
 	});
+	for (let value of cities) {
+		dispatch(fetchCity(value.name));
+	}
 };
 
-export const initCity = (city) => (dispatch, getState) => {
+export const initHomeCity = (city) => (dispatch) => {
 	dispatch(loadingCity);
 	fetch(
 		`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,

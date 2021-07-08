@@ -13,13 +13,7 @@ export function weatherReducer(state = initialState, action) {
 
 	switch (action.type) {
 		case types.INIT:
-			return {
-				...state,
-				cities: payload,
-				isLoading: false,
-				error: false,
-				messageError: '',
-			};
+			return initialState;
 		case types.ADD_HOME_CITY:
 			return {
 				...state,

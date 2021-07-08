@@ -4,7 +4,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import CloseIcon from '@material-ui/icons/Close';
 import { Settings } from './components/Settings/Settings';
 import { WeatherList } from './components/WeatherList/WeatherList';
-import { initApp, initCity } from './redux/actions';
+import { initApp, initHomeCity } from './redux/actions';
 import { useDispatch } from 'react-redux';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 			method: 'GET',
 		})
 			.then((res) => res.json())
-			.then((req) => dispatch(initCity(req.city)));
+			.then((req) => dispatch(initHomeCity(req.city)));
 	}, [dispatch]);
 
 	useEffect(() => {
