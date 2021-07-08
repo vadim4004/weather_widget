@@ -5,3 +5,4 @@ export const LOADING = 'weather/LOADING';
 export const LOADED = 'weather/LOADED';
 export const ERROR = 'weather/ERROR';
 export const INIT = 'weather/INIT';
+export const ADD_HOME_CITY = 'weather/ADD_HOME_CITY';

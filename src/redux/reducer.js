@@ -2,6 +2,7 @@ import * as types from './types';
 
 let initialState = {
 	cities: [],
+	homeCity: null,
 	isLoading: false,
 	error: false,
 	messageError: '',
@@ -18,6 +19,13 @@ export function weatherReducer(state = initialState, action) {
 				isLoading: false,
 				error: false,
 				messageError: '',
+			};
+		case types.ADD_HOME_CITY:
+			return {
+				...state,
+				homeCity: payload,
+				isLoading: false,
+				error: false,
 			};
 
 		case types.ADD_CITY:
