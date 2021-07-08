@@ -1,34 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CityPicker } from '../CityPicker/CityPicker';
 import MenuIcon from '@material-ui/icons/Menu';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import { deleteCity, sort, sortCities } from '../../redux/actions';
+import { deleteCity, sortCities } from '../../redux/actions';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-export const Settings = ({ onSearch, data, error, isLoading }) => {
+export const Settings = () => {
 	const cities = useSelector((state) => state.cities);
 	const dispatch = useDispatch();
-	// const [city, setCity] = useState(cities);
 
 	const handleDragEnd = (result) => {
-		// if (!result.destination) return;
-		// const items = Array.from(city);
-		// const [reorderedItem] = items.splice(result.source.index, 1);
-		// items.splice(result.destination.index, 0, reorderedItem);
-		// setCity(items);
 		const { destination, source } = result;
-		console.log(result);
 		if (!destination) return;
-		dispatch(
-			sortCities(
-				source.droppableId,
-				destination.droppableId,
-				source.index,
-				destination.index
-			)
-		);
+		dispatch(sortCities(source.droppableId, source.index, destination.index));
 	};
+	useEffect(() => {
+		return function cleanup() {
+			localStorage.clear();
+			console.log('hello');
+			localStorage.setItem('persist:root', JSON.stringify(cities));
+		};
+	}, []);
 
 	return (
 		<div>
@@ -60,7 +53,7 @@ export const Settings = ({ onSearch, data, error, isLoading }) => {
 														<MenuIcon className='dnd-item' />
 													</div>
 													<p className='city-name'>
-														{data?.name}, {data.sys.country}
+														{data?.name}, {data?.sys?.country}
 													</p>
 													<p
 														className='delete-option'
@@ -79,12 +72,7 @@ export const Settings = ({ onSearch, data, error, isLoading }) => {
 				</Droppable>
 			</DragDropContext>
 
-			<CityPicker
-				onSearch={onSearch}
-				data={data}
-				isLoading={isLoading}
-				error={error}
-			/>
+			<CityPicker />
 		</div>
 	);
 };

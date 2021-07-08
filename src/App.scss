@@ -54,6 +54,7 @@
 		padding-left: 10px;
 		height: 30px;
 		border-radius: 2px;
+		cursor: default;
 	}
 	.city-options .city-name {
 		margin-left: 15px;
@@ -81,5 +82,8 @@
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
+	}
+	.error {
+		color: brown;
 	}
 }

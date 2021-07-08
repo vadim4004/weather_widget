@@ -1,6 +1,9 @@
 import { API_BASE_URL, API_KEY } from '../api/api';
-// import { fetchApi } from '../api/fetch';
 import * as types from './types';
+
+export const initApp = () => ({
+	type: types.INIT,
+});
 
 export const addCity = (city) => ({
 	type: types.ADD_CITY,
@@ -12,7 +15,13 @@ export const deleteCity = (city) => ({
 	payload: city,
 });
 
-export const fetchAction = (city) => (dispatch) => {
+const loadingCity = () => ({
+	type: types.LOADING,
+});
+const errorFetch = (err) => ({ type: types.ERROR, payload: err });
+
+export const fetchCity = (city) => (dispatch) => {
+	dispatch(loadingCity);
 	fetch(
 		`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
 		{ method: 'GET' }
@@ -20,37 +29,25 @@ export const fetchAction = (city) => (dispatch) => {
 		.then((res) => res.json())
 		.then((data) => {
 			if (data.cod >= 400) {
-				let someError = new Error(data.message);
-				return someError;
+				dispatch(errorFetch(data));
+				return;
 			}
 			return dispatch(addCity(data));
 		})
 		.catch((error) => {
-			return error;
+			console.log(error);
+			dispatch(errorFetch(error));
 		});
 };
 
-export const sort = (
-	droppableIdStart,
-	droppableIdEnd,
-	droppableIndexStart,
-	droppableIndexEnd
-) => ({
-	type: types.DRAG_CITY,
-	payload: {
-		droppableIdStart,
-		droppableIdEnd,
-		droppableIndexStart,
-		droppableIndexEnd,
-	},
-});
-
 export const sortCities =
-	(droppableIdStart, droppableIdEnd, droppableIndexStart, droppableIndexEnd) =>
+	(droppableIdStart, droppableIndexStart, droppableIndexEnd) =>
 	(dispatch, getState) => {
-		const list = getState()[droppableIdStart];
-		console.log(list);
-		const city = list.splice(droppableIndexStart, 1);
-		list.splice(droppableIndexEnd, 0, ...city);
-		dispatch({ type: types.DRAG_CITY, payload: { [droppableIdStart]: list } });
+		const cities = getState()[droppableIdStart];
+		const city = cities.splice(droppableIndexStart, 1);
+		cities.splice(droppableIndexEnd, 0, ...city);
+		dispatch({
+			type: types.DRAG_CITY,
+			payload: { [droppableIdStart]: cities },
+		});
 	};

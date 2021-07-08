@@ -1,27 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CloseIcon from '@material-ui/icons/Close';
 import { Settings } from './components/Settings/Settings';
 import { WeatherList } from './components/WeatherList/WeatherList';
-import { fetchAction } from './redux/actions';
-import { useDispatch } from 'react-redux';
+import { fetchCity, initApp } from './redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { UseInitFetch } from './components/UseInitFetch';
 
 function App() {
 	const [isOpen, setIsOpen] = useState(true);
-	const [error, setError] = useState(null);
-	// const { data, error, setUrl, isLoading } = UseFetch();
 	const dispatch = useDispatch();
+	dispatch(initApp());
+	const cities = useSelector((state) => state.cities);
 
-	const onSearch = (city) => {
-		// setUrl(
-		// 	`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-		// );
-		// console.log(city);
+	// const { location } = UseInitFetch();
+	// useEffect(() => {
+	// 	// if (location == null) return null;
+	// 	// console.log(location);
+	// 	const URL = 'https://geolocation-db.com/json/';
+	// 	fetch(URL, {
+	// 		method: 'GET',
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((req) => dispatch(fetchCity(req.city)));
+	// }, [dispatch]);
 
-		dispatch(fetchAction(city));
-		// .then((er) => setError(er));
-	};
+	// fetchUserCity();
+	// dispatch(fetchCity(location));
 
 	return (
 		<div className='App'>
@@ -40,12 +46,7 @@ function App() {
 					<div className='gear'>
 						<CloseIcon fontSize='large' onClick={() => setIsOpen(true)} />
 					</div>
-					<Settings
-						onSearch={onSearch}
-						// data={data}
-						// isLoading={isLoading}
-						error={error}
-					/>
+					<Settings />
 				</div>
 			)}
 		</div>
