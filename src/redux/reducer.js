@@ -14,6 +14,7 @@ export function weatherReducer(state = initialState, action) {
 		case types.INIT:
 			return {
 				...state,
+				cities: payload,
 				isLoading: false,
 				error: false,
 				messageError: '',
@@ -22,14 +23,14 @@ export function weatherReducer(state = initialState, action) {
 		case types.ADD_CITY:
 			return {
 				...state,
-				cities: [...state.cities, payload],
+				cities: [...payload],
 				isLoading: false,
 				error: false,
 			};
 		case types.DELETE_CITY:
 			return {
 				...state,
-				cities: [...state.cities.filter((city) => city !== payload)],
+				cities: [...payload],
 			};
 		case types.DRAG_CITY:
 			return { ...state, ...payload };

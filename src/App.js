@@ -5,29 +5,27 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Settings } from './components/Settings/Settings';
 import { WeatherList } from './components/WeatherList/WeatherList';
 import { fetchCity, initApp } from './redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { UseInitFetch } from './components/UseInitFetch';
+import { useDispatch } from 'react-redux';
 
 function App() {
 	const [isOpen, setIsOpen] = useState(true);
 	const dispatch = useDispatch();
-	dispatch(initApp());
-	const cities = useSelector((state) => state.cities);
 
-	// const { location } = UseInitFetch();
-	// useEffect(() => {
-	// 	// if (location == null) return null;
-	// 	// console.log(location);
-	// 	const URL = 'https://geolocation-db.com/json/';
-	// 	fetch(URL, {
-	// 		method: 'GET',
-	// 	})
-	// 		.then((res) => res.json())
-	// 		.then((req) => dispatch(fetchCity(req.city)));
-	// }, [dispatch]);
+	useEffect(() => {
+		const URL = 'https://geolocation-db.com/json/';
+		fetch(URL, {
+			method: 'GET',
+		})
+			.then((res) => res.json())
+			.then((req) => dispatch(fetchCity(req.city)));
+	}, [dispatch]);
 
-	// fetchUserCity();
-	// dispatch(fetchCity(location));
+	useEffect(() => {
+		const arr = localStorage.getItem('cities')
+			? localStorage.getItem('cities')
+			: '[]';
+		dispatch(initApp(JSON.parse(arr)));
+	}, [dispatch]);
 
 	return (
 		<div className='App'>

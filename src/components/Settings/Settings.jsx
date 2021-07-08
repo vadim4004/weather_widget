@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CityPicker } from '../CityPicker/CityPicker';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -15,13 +15,6 @@ export const Settings = () => {
 		if (!destination) return;
 		dispatch(sortCities(source.droppableId, source.index, destination.index));
 	};
-	useEffect(() => {
-		return function cleanup() {
-			localStorage.clear();
-			console.log('hello');
-			localStorage.setItem('persist:root', JSON.stringify(cities));
-		};
-	}, []);
 
 	return (
 		<div>
