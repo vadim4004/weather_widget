@@ -10,8 +10,15 @@ export const initApp = (cities) => (dispatch) => {
 	}
 };
 
-export const initHomeCity = (city) => (dispatch) => {
+export const initHomeCity = () => async (dispatch) => {
 	dispatch(loadingCity);
+
+	const URL = 'https://geolocation-db.com/json/';
+	const response = await fetch(URL, {
+		method: 'GET',
+	});
+	const { city } = await response.json();
+
 	fetch(
 		`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
 		{ method: 'GET' }

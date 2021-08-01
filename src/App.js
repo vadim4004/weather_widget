@@ -12,15 +12,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const URL = 'https://geolocation-db.com/json/';
-		fetch(URL, {
-			method: 'GET',
-		})
-			.then((res) => res.json())
-			.then((req) => dispatch(initHomeCity(req.city)));
-	}, [dispatch]);
-
-	useEffect(() => {
+		dispatch(initHomeCity());
 		const arr = localStorage.getItem('cities')
 			? localStorage.getItem('cities')
 			: '[]';
