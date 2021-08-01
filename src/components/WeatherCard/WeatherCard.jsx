@@ -17,12 +17,18 @@ export const WeatherCard = ({
 	visibility,
 	wind,
 	weather,
+	homeCity,
 }) => {
 	const date = new Date(dt);
 
 	return (
 		<Card className='root-card'>
 			<CardContent>
+				{homeCity && (
+					<Typography component='h3' variant='h5'>
+						You are in
+					</Typography>
+				)}
 				<Typography variant='h4' gutterBottom>
 					{name},{country}
 				</Typography>

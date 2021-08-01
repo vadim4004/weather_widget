@@ -40,6 +40,7 @@ export const WeatherList = () => {
 					visibility={homeCity.visibility}
 					wind={homeCity.wind.speed}
 					weather={homeCity.weather[0].description}
+					homeCity={homeCity}
 				/>
 			)}
 		</div>
