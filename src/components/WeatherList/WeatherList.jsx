@@ -2,17 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { WeatherCard } from '../WeatherCard/WeatherCard';
 
-export const WeatherList = () => {
+export const WeatherList = ({ isLoading }) => {
 	const cities = useSelector((state) => state.cities);
 	const homeCity = useSelector((state) => state.homeCity);
 
 	return (
 		<div className=''>
 			{cities &&
-				cities.map((data, index) => {
+				cities.map((data) => {
 					return (
 						<WeatherCard
-							key={index}
+							key={data.id}
 							dt={data.dt * 1000}
 							feelsLike={data.main.feels_like}
 							pressure={data.main.pressure}
@@ -27,6 +27,12 @@ export const WeatherList = () => {
 						/>
 					);
 				})}
+			{isLoading && (
+				<div>
+					<h2>Loading...</h2>
+					<h2>Calculating your geo-position</h2>
+				</div>
+			)}
 			{homeCity && (
 				<WeatherCard
 					dt={homeCity.dt * 1000}

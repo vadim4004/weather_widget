@@ -6,13 +6,16 @@ import { Settings } from './components/Settings/Settings';
 import { WeatherList } from './components/WeatherList/WeatherList';
 import { initApp, initHomeCity } from './redux/actions';
 import { useDispatch } from 'react-redux';
+import { UseFetchHome } from './api/api';
 
 function App() {
 	const [isOpen, setIsOpen] = useState(true);
 	const dispatch = useDispatch();
+	const { data, isLoading } = UseFetchHome();
+
+	dispatch(initHomeCity(data, isLoading));
 
 	useEffect(() => {
-		dispatch(initHomeCity());
 		const arr = localStorage.getItem('cities')
 			? localStorage.getItem('cities')
 			: '[]';
@@ -27,7 +30,7 @@ function App() {
 					<div className='gear'>
 						<SettingsIcon fontSize='large' onClick={() => setIsOpen(false)} />
 					</div>
-					<WeatherList />
+					<WeatherList isLoading={isLoading} />
 				</div>
 			)}
 

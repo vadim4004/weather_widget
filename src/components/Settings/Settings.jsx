@@ -15,7 +15,6 @@ export const Settings = () => {
 		if (!destination) return;
 		dispatch(sortCities(source.droppableId, source.index, destination.index));
 	};
-
 	return (
 		<div>
 			<p className='settings'>Settings</p>
@@ -27,38 +26,37 @@ export const Settings = () => {
 							{...provided.droppableProps}
 							ref={provided.innerRef}
 						>
-							{cities &&
-								cities?.map((data, index) => {
-									return (
-										<Draggable
-											key={data.id}
-											draggableId={String(data.id)}
-											index={index}
-										>
-											{(provided) => (
-												<div
-													{...provided.draggableProps}
-													{...provided.dragHandleProps}
-													ref={provided.innerRef}
-													className='city-options'
-												>
-													<div>
-														<MenuIcon className='dnd-item' />
-													</div>
-													<p className='city-name'>
-														{data?.name}, {data?.sys?.country}
-													</p>
-													<p
-														className='delete-option'
-														onClick={() => dispatch(deleteCity(data))}
-													>
-														<DeleteOutlineIcon />
-													</p>
+							{cities?.map((data, index) => {
+								return (
+									<Draggable
+										key={data.id}
+										draggableId={String(data.id)}
+										index={index}
+									>
+										{(provided) => (
+											<div
+												{...provided.draggableProps}
+												{...provided.dragHandleProps}
+												ref={provided.innerRef}
+												className='city-options'
+											>
+												<div>
+													<MenuIcon className='dnd-item' />
 												</div>
-											)}
-										</Draggable>
-									);
-								})}
+												<p className='city-name'>
+													{data?.name}, {data?.sys?.country}
+												</p>
+												<p
+													className='delete-option'
+													onClick={() => dispatch(deleteCity(data))}
+												>
+													<DeleteOutlineIcon />
+												</p>
+											</div>
+										)}
+									</Draggable>
+								);
+							})}
 							{provided.placeholder}
 						</div>
 					)}

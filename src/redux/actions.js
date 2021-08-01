@@ -10,37 +10,43 @@ export const initApp = (cities) => (dispatch) => {
 	}
 };
 
-export const initHomeCity = () => async (dispatch) => {
+export const initHomeCity = (data, isLoading) => async (dispatch) => {
 	dispatch(loadingCity);
 
-	const URL = 'https://geolocation-db.com/json/';
-	const response = await fetch(URL, {
-		method: 'GET',
-	});
-	const { city } = await response.json();
+	// const URL = 'https://geolocation-db.com/json/';
+	// const response = await fetch(URL, {
+	// 	method: 'GET',
+	// });
+	// const { city } = await response.json();
 
-	fetch(
-		`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
-		{ method: 'GET' }
-	)
-		.then((res) => res.json())
-		.then((data) => {
-			if (data.cod >= 400) {
-				dispatch(errorFetch(data));
-				return;
-			}
-			return dispatch({
-				type: types.ADD_HOME_CITY,
-				payload: data,
+	// ^ "get home city" using unreliable api
+
+	const city = await data?.name;
+	if (data && !isLoading) {
+		fetch(
+			`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
+			{ method: 'GET' }
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.cod >= 400) {
+					dispatch(errorFetch(data));
+					return;
+				}
+				return dispatch({
+					type: types.ADD_HOME_CITY,
+					payload: data,
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				dispatch(errorFetch(error));
 			});
-		})
-		.catch((error) => {
-			console.log(error);
-			dispatch(errorFetch(error));
-		});
+	}
 };
 
 const addCity = (city) => (dispatch, getState) => {
+	dispatch(loadingCity);
 	const arr = getState().cities;
 	if (arr.some((c) => c.id === city.id)) {
 		dispatch(
@@ -70,24 +76,23 @@ const loadingCity = () => ({
 });
 const errorFetch = (err) => ({ type: types.ERROR, payload: err });
 
-export const fetchCity = (city) => (dispatch) => {
+export const fetchCity = (city) => async (dispatch) => {
 	dispatch(loadingCity);
-	fetch(
-		`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
-		{ method: 'GET' }
-	)
-		.then((res) => res.json())
-		.then((data) => {
-			if (data.cod >= 400) {
-				dispatch(errorFetch(data));
-				return;
-			}
-			return dispatch(addCity(data));
-		})
-		.catch((error) => {
-			console.log(error);
-			dispatch(errorFetch(error));
-		});
+	try {
+		const response = await fetch(
+			`${API_BASE_URL}/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`,
+			{ method: 'GET' }
+		);
+		const data = await response.json();
+		if (data.cod >= 400) {
+			dispatch(errorFetch(data));
+			return;
+		}
+		return dispatch(addCity(data));
+	} catch (error) {
+		console.log(error);
+		dispatch(errorFetch(error));
+	}
 };
 
 export const sortCities =
