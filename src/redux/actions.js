@@ -42,10 +42,16 @@ export const initHomeCity = () => async (dispatch) => {
 
 const addCity = (city) => (dispatch, getState) => {
 	const arr = getState().cities;
-	const cities = [...arr, city];
-	localStorage.removeItem('cities');
-	localStorage.setItem('cities', JSON.stringify(cities));
-	dispatch({ type: types.ADD_CITY, payload: cities });
+	if (arr.some((c) => c.id === city.id)) {
+		dispatch(
+			errorFetch({ message: `city '${city.name}' has already been added` })
+		);
+	} else {
+		const cities = [...arr, city];
+		localStorage.removeItem('cities');
+		localStorage.setItem('cities', JSON.stringify(cities));
+		dispatch({ type: types.ADD_CITY, payload: cities });
+	}
 };
 
 export const deleteCity = (city) => (dispatch, getState) => {
