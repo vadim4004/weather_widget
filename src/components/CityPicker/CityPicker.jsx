@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddIcon from '@material-ui/icons/Add';
 import { Button, OutlinedInput } from '@material-ui/core';
-import { GetWeather } from '../GetWeather/GetWeather';
+import { CityResultInfo } from '../CityResultInfo/CityResultInfo';
 import { fetchCity } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 
@@ -45,7 +45,7 @@ export const CityPicker = () => {
 					</Button>
 				</form>
 			</div>
-			<GetWeather />
+			<CityResultInfo />
 		</div>
 	);
 };

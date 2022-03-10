@@ -11,9 +11,9 @@ import { UseFetchHome } from './api/api';
 function App() {
 	const [isOpen, setIsOpen] = useState(true);
 	const dispatch = useDispatch();
-	const { data, isLoading } = UseFetchHome();
+	const { data, isLoading: isHomeCityLoading } = UseFetchHome();
 
-	dispatch(initHomeCity(data, isLoading));
+	dispatch(initHomeCity(data, isHomeCityLoading));
 
 	useEffect(() => {
 		const arr = localStorage.getItem('cities')
@@ -30,7 +30,7 @@ function App() {
 					<div className='gear'>
 						<SettingsIcon fontSize='large' onClick={() => setIsOpen(false)} />
 					</div>
-					<WeatherList isLoading={isLoading} />
+					<WeatherList isLoading={isHomeCityLoading} />
 				</div>
 			)}
 

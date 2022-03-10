@@ -1,6 +1,6 @@
 import * as types from './types';
 
-let initialState = {
+const initialState = {
 	cities: [],
 	homeCity: null,
 	isLoading: false,
