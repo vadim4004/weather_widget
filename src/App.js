@@ -40,7 +40,7 @@ function App() {
 							</span>
 						</div>
 					)}
-					<WeatherList isLoading={isHomeCityLoading} />
+					<WeatherList isHomeCityLoading={isHomeCityLoading} />
 				</div>
 			)}
 
