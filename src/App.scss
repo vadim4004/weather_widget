@@ -4,8 +4,16 @@
 	max-width: 300px;
 	margin: 0 auto;
 
+	svg {
+		min-width: 20px;
+	}
+
 	.root-card {
 		margin-bottom: 10px;
+
+		.card-content {
+			padding-top: 24px;
+		}
 
 		.weather-info {
 			display: flex;
@@ -32,16 +40,23 @@
 		}
 	}
 
+	.wrapper {
+		position: relative;
+	}
 	.gear {
 		position: absolute;
+		right: 0;
 		display: flex;
-		width: 300px;
 		justify-content: flex-end;
 	}
 	.settings {
-		margin: 30px auto;
 		text-align: left;
-		padding-top: 7px;
+		padding: 16px 10px 24px;
+	}
+
+	.helper-message {
+		padding-right: 40px;
+		margin-bottom: 20px;
 	}
 
 	.city-options {

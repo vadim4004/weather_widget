@@ -23,7 +23,7 @@ export const WeatherCard = ({
 
 	return (
 		<Card className='root-card'>
-			<CardContent>
+			<CardContent className='card-content'>
 				{homeCity && (
 					<Typography component='h3' variant='h5'>
 						You are in
