@@ -1,12 +1,12 @@
 import { API_BASE_URL, API_KEY } from '../api/api';
 import * as types from './types';
 
-export const initApp = (cities) => (dispatch) => {
+export const initApp = (cities) => async (dispatch) => {
 	dispatch({
 		type: types.INIT,
 	});
-	for (let value of cities) {
-		dispatch(fetchCity(value.name));
+	for await (let value of cities) {
+		await dispatch(fetchCity(value.name));
 	}
 };
 

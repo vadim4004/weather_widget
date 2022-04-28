@@ -10,20 +10,23 @@ export const UseFetchHome = () => {
 	useEffect(() => {
 		setIsLoading(true);
 		async function fetchData() {
-			navigator.geolocation.getCurrentPosition(async (position) => {
-				try {
-					const response = await fetch(
-						`${API_BASE_URL}/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${API_KEY}`
-					);
-					const city = await response.json();
-					setIsLoading(false);
-					setData(city);
-				} catch (err) {
-					setIsLoading(false);
-					console.log(err);
-					return;
-				}
-			});
+			navigator.geolocation.getCurrentPosition(
+				async (position) => {
+					try {
+						const response = await fetch(
+							`${API_BASE_URL}/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${API_KEY}`
+						);
+						const city = await response.json();
+						setIsLoading(false);
+						setData(city);
+					} catch (err) {
+						setIsLoading(false);
+						console.log(err);
+						return;
+					}
+				},
+				(err) => console.log(err)
+			);
 		}
 
 		fetchData();
